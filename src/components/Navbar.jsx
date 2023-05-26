@@ -15,6 +15,7 @@ import { Button } from "@mui/material";
 import UploadCourse2 from "./UploadCourse2";
 import categories from '../utils/categories'
 import { AiFillHome } from "react-icons/ai";
+import Signup from "./Signup";
 
 function Navbar({ sidebarExtended, setSidebarExtended }) {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function Navbar({ sidebarExtended, setSidebarExtended }) {
           </div>
           <div className="flex items-center px-10">
             {auth === false && <Login />}
+            {auth === false && <Signup />}
             {auth=== true && parseInt(user?.role_id) >= 2 && <UploadCourse2 />}
             {auth === true && <AccountMenu />}
           </div>
