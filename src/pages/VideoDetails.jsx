@@ -14,8 +14,7 @@ import get_view_course from "../api/get_view_course";
 import CommentComponent from "../components/CommentComponent";
 import axios from "axios";
 import Cookies from "js-cookie";
-import LinesEllipsis from 'react-lines-ellipsis'
-
+import LinesEllipsis from "react-lines-ellipsis";
 
 function VideoDetails() {
   const { sidebarExtend } = useSelector((state) => state.category);
@@ -33,7 +32,7 @@ function VideoDetails() {
   const [commentCourse, setCommentCourse] = useState([]);
   const [viewCourse, setViewCourse] = useState([]);
   const [like, setLike] = useState(false);
-  const [countLike, setCountLike]= useState()
+  const [countLike, setCountLike] = useState();
 
   useEffect(() => {
     (async () => {
@@ -45,7 +44,7 @@ function VideoDetails() {
       setLikeCourse(result1);
       setCommentCourse(result2);
       setViewCourse(result3);
-      setCountLike(result1?.data?.length)
+      setCountLike(result1?.data?.length);
       setLike(
         result1?.data?.filter((item) => item.user_id_post == Cookies.get("uid"))
           ?.length > 0
@@ -54,18 +53,18 @@ function VideoDetails() {
       );
     })();
   }, [id]);
-  const [relatedVideo, setRelatedVideo]= useState([])
+  const [relatedVideo, setRelatedVideo] = useState([]);
 
   useEffect(() => {
-    (async ()=> {
-      const res= await axios({
-        url: API_URL+ "/api/v1/video/related",
-        method: "get"
-      })
-      const result= await res.data
-      setRelatedVideo(result?.data)
-      return result
-    })()
+    (async () => {
+      const res = await axios({
+        url: API_URL + "/api/v1/video/related",
+        method: "get",
+      });
+      const result = await res.data;
+      setRelatedVideo(result?.data);
+      return result;
+    })();
   }, []);
 
   const likeFunction = async () => {
@@ -82,27 +81,27 @@ function VideoDetails() {
     const result = await res.data;
     if (result.like === true) {
       setLike(true);
-      setCountLike(parseInt(countLike) + 1)
+      setCountLike(parseInt(countLike) + 1);
     } else {
       setLike(false);
-      setCountLike(parseInt(countLike) - 1)
+      setCountLike(parseInt(countLike) - 1);
     }
     return result;
   };
-  useEffect(()=> {
-    const timeoutId= setTimeout(async ()=> {
-      const res= await axios({
-        url: API_URL+ "/api/v1/course/view",
+  useEffect(() => {
+    const timeoutId = setTimeout(async () => {
+      const res = await axios({
+        url: API_URL + "/api/v1/course/view",
         method: "post",
         data: {
-          course_id: id
-        }
-      })
-      const result= await res.data
-      return result
-    }, 10000)
-    return ()=> clearInterval(timeoutId)
-  }, [id])
+          course_id: id,
+        },
+      });
+      const result = await res.data;
+      return result;
+    }, 10000);
+    return () => clearInterval(timeoutId);
+  }, [id]);
   return (
     <>
       <div
@@ -126,9 +125,7 @@ function VideoDetails() {
             controls
           />
           <div>
-            <div className="flex gap-x-1">
-              
-            </div>
+            <div className="flex gap-x-1"></div>
             <h2 className="text-md sm:text-xl md:text-2xl text-[#000000] font-medium mt-3">
               {data?.data?.course_title || "_"}
             </h2>
@@ -148,12 +145,24 @@ function VideoDetails() {
               {/* </div> */}
 
               <div className="flex items-center gap-x-3 mb-5 sm:mb-0">
-                <div onClick={likeFunction} style={{background: like=== true ? "#2e89ff" : "#f2f0f5", color: like=== true ? "#fff" : "#000", cursor: "pointer"}} className="flex items-center bg-[#f2f2f2] px-3 py-2 rounded-[10px]">
+                <div
+                  onClick={likeFunction}
+                  style={{
+                    background: like === true ? "#2e89ff" : "#f2f0f5",
+                    color: like === true ? "#fff" : "#000",
+                    cursor: "pointer",
+                  }}
+                  className="flex items-center bg-[#f2f2f2] px-3 py-2 rounded-[10px]"
+                >
                   <FiThumbsUp className="w-10 h-6" />
-                  <span style={{color: like=== true ? "#fff" : "#000", marginRight: 8}} className="text-[12.4px] sm:text-[14.4px] text-[#0f0f0f] font-medium tracking-wide">
-                    {convertToInternationalCurrencySystem(
-                      countLike || "0"
-                    )}
+                  <span
+                    style={{
+                      color: like === true ? "#fff" : "#000",
+                      marginRight: 8,
+                    }}
+                    className="text-[12.4px] sm:text-[14.4px] text-[#0f0f0f] font-medium tracking-wide"
+                  >
+                    {convertToInternationalCurrencySystem(countLike || "0")}
                     Likes
                   </span>
                 </div>
@@ -165,8 +174,13 @@ function VideoDetails() {
               </div>
             </div>
             {/* Desc */}
-              <LinesEllipsis text={data?.data?.course_description} maxLine='3'  ellipsis='...' trimRight />
-                
+            <LinesEllipsis
+              text={data?.data?.course_description}
+              maxLine="3"
+              ellipsis="..."
+              trimRight
+            />
+
             {/*  */}
             <CommentComponent />
           </div>

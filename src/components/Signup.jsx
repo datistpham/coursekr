@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 // import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from "@mui/material/DialogTitle";
-import { TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import loginApi from "../api/login";
 import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
@@ -19,6 +19,7 @@ export default function Signup() {
   const [fullName, setFullName]= React.useState("")
   const [password, setPassword] = React.useState("");
     const [userName, setUserName]= React.useState("")
+    const [role, setRole]= React.useState(1)
   const { enqueueSnackbar } = useSnackbar();
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,16 +82,16 @@ export default function Signup() {
           <br />
           <div></div>
               <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <InputLabel id="demo-simple-select-label">You are: </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={courseCategory}
-              label="Age"
-              onChange={(e)=> setCourseCategory(parseInt(e.target.value))}
+              value={role}
+              label="Role"
+              onChange={(e)=> setRole(parseInt(e.target.value))}
             >
-              <MenuItem value={0}>Vocabulary</MenuItem>
-              <MenuItem value={1}>Grammar</MenuItem>
+              <MenuItem value={1}>Student</MenuItem>
+              <MenuItem value={2}>Teacher</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>
@@ -100,7 +101,7 @@ export default function Signup() {
             variant={"contained"}
             onClick={async () => {
               try {
-                const result = await signupApi({ email, password, full_name: fullName, user_name: userName });
+                const result = await signupApi({ email, password, full_name: fullName, user_name: userName, role: role });
                 if (result?.ok === true) {
                   swal("Notice", "Sign up is successfully", "success")
                   .then(()=>  window.location.reload())
