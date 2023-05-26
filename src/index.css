@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.bot-message {
+    direction: ltr;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f2f0f5;
+    margin: 8px 0;
+
+}
+
+.user-message {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    margin: 8px 0;
+
+}
+
+.user-message .message-text {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #2e89ff;
+    color: #fff;
+}
