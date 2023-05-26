@@ -12,6 +12,7 @@ import { useSnackbar } from "notistack";
 import signupApi from "../api/signup";
 import swal from "sweetalert";
 
+
 export default function Signup() {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
@@ -76,6 +77,22 @@ export default function Signup() {
             style={{ margin: "12px 0", height: 40, width: 550 }}
             placeholder={"Password"}
           />
+               <div></div>
+          <br />
+          <div></div>
+              <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={courseCategory}
+              label="Age"
+              onChange={(e)=> setCourseCategory(parseInt(e.target.value))}
+            >
+              <MenuItem value={0}>Vocabulary</MenuItem>
+              <MenuItem value={1}>Grammar</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
@@ -100,7 +117,7 @@ export default function Signup() {
             }}
             autoFocus
           >
-            Login
+            Sign up
           </Button>
         </DialogActions>
       </Dialog>
